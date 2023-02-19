@@ -1,13 +1,12 @@
-changeSet:
-  id: create-person-table
-  author: Vladimir C.
-  changes:
-    - createTable:
+databaseChangeLog:
+  changeSet:
+    changes:
+      - createTable:
         tableName: person
         columns:
           - column:
               name: id
-              type: varchar(255)
+              type: serial
               constraints:
                 primaryKey: true
                 nullable: false

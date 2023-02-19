@@ -1,3 +1,5 @@
 databaseChangeLog:
-  - include:
+  - changeSet:
+      id: 1
+      author: Vladimir C.
       file: db/changelog/changeset/create-person-table.yaml
