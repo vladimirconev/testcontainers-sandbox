@@ -32,7 +32,7 @@ class TestcontainersSandboxApplicationTests {
 
   @Container
   private static final PostgreSQLContainer<?> POSTGRES_SQL_CONTAINER =
-      new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"));
+      new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.2-alpine"));
 
   @Autowired private PersonRestController personRestController;
 
