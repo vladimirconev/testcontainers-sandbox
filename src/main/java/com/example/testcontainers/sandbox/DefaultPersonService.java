@@ -15,12 +15,14 @@ public class DefaultPersonService implements PersonService {
   @Override
   public Person create(String firstName, String lastName, Country country, Language language) {
     var person = new Person(firstName, lastName, country, language);
-    person.setCreatedAt(Instant.now(Clock.systemUTC()));
+    var instant = Instant.now(Clock.systemUTC());
+    person.setCreatedAt(instant);
+    person.setUpdatedAt(instant);
     return repository.saveAndFlush(person);
   }
 
   @Override
   public Optional<Person> byId(Long id) {
-    return Optional.ofNullable(repository.getReferenceById(id));
+    return Optional.of(repository.getReferenceById(id));
   }
 }
