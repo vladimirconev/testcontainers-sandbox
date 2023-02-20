@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet author="Vladimir Conev" id="1">
+        <sql>
+            CREATE TABLE IF NOT EXISTS person (
+            id SERIAL PRIMARY KEY,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            country VARCHAR(2) NOT NULL,
+            language VARCHAR(2) NOT NULL,
+            created_at timestamp without time zone DEFAULT current_timestamp NOT NULL,
+            deleted_at timestamp without time zone,
+            updated_at timestamp without time zone DEFAULT current_timestamp NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
