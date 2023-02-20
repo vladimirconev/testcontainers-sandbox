@@ -1,6 +1,9 @@
 package com.example.testcontainers.sandbox;
 
+import static java.time.ZoneOffset.UTC;
+
 import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
 
@@ -15,7 +18,12 @@ public class DefaultPersonService implements PersonService {
   @Override
   public Person create(String firstName, String lastName, Country country, Language language) {
     var person = new Person(firstName, lastName, country, language);
-    var instant = Instant.now(Clock.systemUTC());
+    Clock clock = Clock.fixed(Instant.EPOCH, UTC);
+    clock.instant();
+    clock.millis();
+    Clock.offset(clock, Duration.ZERO);
+    Clock.tick(clock, Duration.ZERO);
+    var instant = Instant.now(clock);
     person.setCreatedAt(instant);
     person.setUpdatedAt(instant);
     return repository.saveAndFlush(person);
