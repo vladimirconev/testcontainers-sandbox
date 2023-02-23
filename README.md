@@ -15,5 +15,8 @@ Playground to check up Testcontainers for Java (https://www.testcontainers.org/)
 # Run it 
 ``docker compose -f .\docker-compose.yml up --build -d``
 
+# Spring Doc Open API 
+``http://localhost:8080/swagger-ui/index.html``
+
 Happy Coding! 
 
