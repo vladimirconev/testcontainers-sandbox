@@ -2,8 +2,7 @@ package com.example.testcontainers.sandbox;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -109,5 +108,37 @@ class TestcontainersSandboxApplicationTests {
     assertEquals(person.getLanguage().name(), personResponse.getLanguage());
     assertEquals(person.getLanguage().name(), personResponse.getLanguage());
     assertEquals(person.getLanguage().name(), personResponse.getLanguage());
+  }
+
+  @Test
+  void softDelete() throws Exception {
+    var person = personService.create("Stjepan", "Vrsaljko", Country.CH, Language.IT);
+
+    MvcResult mvcResult =
+        mockMvc
+            .perform(
+                delete("/api/v1/persons/%d".formatted(person.getId()))
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andReturn();
+    var mockResponse = mvcResult.getResponse();
+    assertThat(mockResponse).isNotNull();
+    var contentAsString = mockResponse.getContentAsString();
+    assertEquals("true", contentAsString);
+  }
+
+  @Test
+  void softDeleteOnNonExistingElementShouldNotBeAcknowledged() throws Exception {
+    MvcResult mvcResult =
+        mockMvc
+            .perform(delete("/api/v1/persons/12").contentType(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andReturn();
+    var mockResponse = mvcResult.getResponse();
+    assertThat(mockResponse).isNotNull();
+    var contentAsString = mockResponse.getContentAsString();
+    assertEquals("false", contentAsString);
   }
 }

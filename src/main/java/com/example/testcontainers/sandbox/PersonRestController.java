@@ -3,6 +3,7 @@ package com.example.testcontainers.sandbox;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.NoSuchElementException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,12 @@ public class PersonRestController {
 
   public PersonRestController(PersonService personService) {
     this.personService = personService;
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Boolean> softDelete(final @PathVariable("id") Long id) {
+    boolean acknowledged = personService.softDelete(id);
+    return new ResponseEntity<>(acknowledged, HttpStatus.OK);
   }
 
   @PostMapping

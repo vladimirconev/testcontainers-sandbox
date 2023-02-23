@@ -1,7 +1,5 @@
 package com.example.testcontainers.sandbox;
 
-import static java.time.ZoneOffset.UTC;
-
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Optional;
@@ -15,10 +13,21 @@ public class DefaultPersonService implements PersonService {
   }
 
   @Override
+  public boolean softDelete(final Long id) {
+    if (repository.existsById(id)) {
+      var person = repository.getReferenceById(id);
+      var instant = Instant.now(Clock.systemUTC());
+      person.setDeletedAt(instant);
+      repository.saveAndFlush(person);
+      return true;
+    }
+    return false;
+  }
+
+  @Override
   public Person create(String firstName, String lastName, Country country, Language language) {
     var person = new Person(firstName, lastName, country, language);
-    var clock = Clock.fixed(Instant.EPOCH, UTC);
-    var instant = Instant.now(clock);
+    var instant = Instant.now(Clock.systemUTC());
     person.setCreatedAt(instant);
     person.setUpdatedAt(instant);
     return repository.saveAndFlush(person);
@@ -26,6 +35,6 @@ public class DefaultPersonService implements PersonService {
 
   @Override
   public Optional<Person> byId(Long id) {
-    return Optional.of(repository.getReferenceById(id));
+    return repository.findById(id);
   }
 }
