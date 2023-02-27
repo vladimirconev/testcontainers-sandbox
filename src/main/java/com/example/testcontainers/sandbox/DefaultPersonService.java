@@ -3,6 +3,7 @@ package com.example.testcontainers.sandbox;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 public class DefaultPersonService implements PersonService {
 
@@ -13,7 +14,7 @@ public class DefaultPersonService implements PersonService {
   }
 
   @Override
-  public boolean softDelete(final Long id) {
+  public boolean softDelete(final UUID id) {
     if (repository.existsById(id)) {
       var person = repository.getReferenceById(id);
       var instant = Instant.now(Clock.systemUTC());
@@ -26,15 +27,11 @@ public class DefaultPersonService implements PersonService {
 
   @Override
   public Person create(String firstName, String lastName, Country country, Language language) {
-    var person = new Person(firstName, lastName, country, language);
-    var instant = Instant.now(Clock.systemUTC());
-    person.setCreatedAt(instant);
-    person.setUpdatedAt(instant);
-    return repository.saveAndFlush(person);
+    return repository.saveAndFlush(new Person(firstName, lastName, country, language));
   }
 
   @Override
-  public Optional<Person> byId(Long id) {
+  public Optional<Person> byId(UUID id) {
     return repository.findById(id);
   }
 }

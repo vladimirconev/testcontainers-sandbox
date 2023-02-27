@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.UUID;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -93,7 +94,7 @@ class TestcontainersSandboxApplicationTests {
     MvcResult mvcResult =
         mockMvc
             .perform(
-                get("/api/v1/persons/%d".formatted(person.getId()))
+                get("/api/v1/persons/%s".formatted(person.getId().toString()))
                     .contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
@@ -117,7 +118,7 @@ class TestcontainersSandboxApplicationTests {
     MvcResult mvcResult =
         mockMvc
             .perform(
-                delete("/api/v1/persons/%d".formatted(person.getId()))
+                delete("/api/v1/persons/%s".formatted(person.getId().toString()))
                     .contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
@@ -132,7 +133,9 @@ class TestcontainersSandboxApplicationTests {
   void softDeleteOnNonExistingElementShouldNotBeAcknowledged() throws Exception {
     MvcResult mvcResult =
         mockMvc
-            .perform(delete("/api/v1/persons/12").contentType(MediaType.APPLICATION_JSON))
+            .perform(
+                delete("/api/v1/persons/%s".formatted(UUID.randomUUID().toString()))
+                    .contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
             .andReturn();

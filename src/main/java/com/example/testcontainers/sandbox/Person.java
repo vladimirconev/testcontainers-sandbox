@@ -3,14 +3,15 @@ package com.example.testcontainers.sandbox;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "person")
 public class Person implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
   @Column(nullable = false, name = "first_name")
   private String firstName;
@@ -44,11 +45,11 @@ public class Person implements Serializable {
     this.language = language;
   }
 
-  public Long getId() {
+  public UUID getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 

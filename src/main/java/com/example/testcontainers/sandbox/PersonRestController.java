@@ -3,6 +3,7 @@ package com.example.testcontainers.sandbox;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +21,7 @@ public class PersonRestController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Boolean> softDelete(final @PathVariable("id") Long id) {
+  public ResponseEntity<Boolean> softDelete(final @PathVariable("id") UUID id) {
     boolean acknowledged = personService.softDelete(id);
     return new ResponseEntity<>(acknowledged, HttpStatus.OK);
   }
@@ -35,12 +36,12 @@ public class PersonRestController {
             Country.valueOf(request.getCountry()),
             Language.valueOf(request.getLanguage()));
     var responseBody = PersonMapper.MAPPER.fromPerson(person);
-    return ResponseEntity.created(URI.create("/api/v1/persons/%d".formatted(person.getId())))
+    return ResponseEntity.created(URI.create("/api/v1/persons/%s".formatted(person.getId())))
         .body(responseBody);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<PersonResponse> findById(final @PathVariable("id") Long id) {
+  public ResponseEntity<PersonResponse> findById(final @PathVariable("id") UUID id) {
     var personResponse =
         personService
             .byId(id)

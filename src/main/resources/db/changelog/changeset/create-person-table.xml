@@ -6,15 +6,16 @@
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet author="Vladimir Conev" id="1">
         <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
             CREATE TABLE IF NOT EXISTS person (
-            id SERIAL PRIMARY KEY,
+            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             first_name VARCHAR(255) NOT NULL,
             last_name VARCHAR(255) NOT NULL,
             country VARCHAR(2) NOT NULL,
             language VARCHAR(2) NOT NULL,
-            created_at timestamp without time zone DEFAULT current_timestamp NOT NULL,
-            deleted_at timestamp without time zone,
-            updated_at timestamp without time zone DEFAULT current_timestamp NOT NULL
+            created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            deleted_at TIMESTAMP WITHOUT TIME ZONE,
+            updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
             );
         </sql>
     </changeSet>

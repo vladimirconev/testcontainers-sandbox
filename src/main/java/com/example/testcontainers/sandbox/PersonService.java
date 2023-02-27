@@ -1,10 +1,11 @@
 package com.example.testcontainers.sandbox;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface PersonService {
 
-  boolean softDelete(final Long id);
+  boolean softDelete(final UUID id);
 
   Person create(
       final String firstName,
@@ -12,5 +13,5 @@ public interface PersonService {
       final Country country,
       final Language language);
 
-  Optional<Person> byId(final Long id);
+  Optional<Person> byId(final UUID id);
 }

@@ -1,10 +1,11 @@
 package com.example.testcontainers.sandbox;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class PersonResponse implements Serializable {
 
-  private Long id;
+  private UUID id;
 
   private String firstName;
 
@@ -16,11 +17,11 @@ public class PersonResponse implements Serializable {
 
   public PersonResponse() {}
 
-  public Long getId() {
+  public UUID getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 
