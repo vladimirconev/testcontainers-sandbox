@@ -10,7 +10,7 @@ public class SpringBeansConfig {
 
   @Bean
   public PersonService personService(final PersonRepository personRepository) {
-    return new DefaultPersonService(personRepository);
+    return new PersonService(personRepository);
   }
 
   @Bean

@@ -66,11 +66,7 @@ class TestcontainersSandboxApplicationTests {
 
   @Test
   void createPerson() throws Exception {
-    var payload = new PersonRequest();
-    payload.setCountry("BR");
-    payload.setLanguage("PT");
-    payload.setFirstName("Eder");
-    payload.setLastName("Morales");
+    var payload = new PersonRequest("Eder", "Morales", "BR", "PT");
     MvcResult mvcResult =
         mockMvc
             .perform(
@@ -85,7 +81,7 @@ class TestcontainersSandboxApplicationTests {
     var personResponse =
         objectMapper.readValue(mockResponse.getContentAsString(), PersonResponse.class);
     assertThat(personResponse).isNotNull();
-    assertThat(personResponse.getId()).isNotNull();
+    assertThat(personResponse.id()).isNotNull();
   }
 
   @Test
@@ -104,11 +100,11 @@ class TestcontainersSandboxApplicationTests {
     var personResponse =
         objectMapper.readValue(mockResponse.getContentAsString(), PersonResponse.class);
     assertThat(personResponse).isNotNull();
-    assertEquals(person.getId(), personResponse.getId());
-    assertEquals(person.getCountry().name(), personResponse.getCountry());
-    assertEquals(person.getLanguage().name(), personResponse.getLanguage());
-    assertEquals(person.getLanguage().name(), personResponse.getLanguage());
-    assertEquals(person.getLanguage().name(), personResponse.getLanguage());
+    assertEquals(person.getId(), personResponse.id());
+    assertEquals(person.getCountry().name(), personResponse.country());
+    assertEquals(person.getLanguage().name(), personResponse.language());
+    assertEquals(person.getFirstName(), personResponse.firstName());
+    assertEquals(person.getLastName(), personResponse.lastName());
   }
 
   @Test

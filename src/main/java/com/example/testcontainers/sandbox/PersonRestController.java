@@ -16,7 +16,7 @@ public class PersonRestController {
 
   private final PersonService personService;
 
-  public PersonRestController(PersonService personService) {
+  public PersonRestController(final PersonService personService) {
     this.personService = personService;
   }
 
@@ -31,10 +31,10 @@ public class PersonRestController {
 
     var person =
         personService.create(
-            request.getFirstName(),
-            request.getLastName(),
-            Country.valueOf(request.getCountry()),
-            Language.valueOf(request.getLanguage()));
+            request.firstName(),
+            request.lastName(),
+            Country.valueOf(request.country()),
+            Language.valueOf(request.language()));
     var responseBody = PersonMapper.MAPPER.fromPerson(person);
     return ResponseEntity.created(URI.create("/api/v1/persons/%s".formatted(person.getId())))
         .body(responseBody);
