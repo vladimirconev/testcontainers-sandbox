@@ -20,7 +20,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
@@ -30,9 +29,8 @@ import org.testcontainers.utility.DockerImageName;
 @Testcontainers(disabledWithoutDocker = true)
 class TestcontainersSandboxApplicationTests {
 
-  @Container
-  private static final PostgreSQLContainer<?> POSTGRES_SQL_CONTAINER =
-      new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.2-alpine"));
+  static final PostgreSQLContainer<?> POSTGRES_SQL_CONTAINER =
+      new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.2-alpine")).withReuse(true);
 
   @Autowired private PersonRestController personRestController;
 
