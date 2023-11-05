@@ -5,19 +5,19 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.2</version>
+		<version>3.1.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.testcontainers</groupId>
 	<artifactId>sandbox</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>testcontainers-sandbox</name>
 	<description>Demo project for trying out Testcontainers</description>
 	<properties>
-		<java.version>20</java.version>
-		<testcontainers.version>1.19.0</testcontainers.version>
+		<java.version>21</java.version>
+		<testcontainers.version>1.19.1</testcontainers.version>
 		<fmt-maven-plugin.goal>check</fmt-maven-plugin.goal>
-		<fmt-maven-plugin.version>2.20</fmt-maven-plugin.version>
+		<fmt-maven-plugin.version>2.21.1</fmt-maven-plugin.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<sprindoc-openapi-ui.version>2.0.4</sprindoc-openapi-ui.version>
 	</properties>

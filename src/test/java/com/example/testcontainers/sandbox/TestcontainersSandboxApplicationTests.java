@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -30,7 +29,7 @@ import org.testcontainers.utility.DockerImageName;
 class TestcontainersSandboxApplicationTests {
 
   static final PostgreSQLContainer<?> POSTGRES_SQL_CONTAINER =
-      new PostgreSQLContainer<>(DockerImageName.parse("postgres:15.2-alpine")).withReuse(true);
+      new PostgreSQLContainer<>("postgres:15.2-alpine").withReuse(true);
 
   @Autowired private PersonRestController personRestController;
 
@@ -65,7 +64,7 @@ class TestcontainersSandboxApplicationTests {
   @Test
   void createPerson() throws Exception {
     var payload = new PersonRequest("Eder", "Morales", "BR", "PT");
-    MvcResult mvcResult =
+    var mvcResult =
         mockMvc
             .perform(
                 post("/api/v1/persons")

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/persons")
 @Validated
-public class PersonRestController {
+class PersonRestController {
 
   private final PersonService personService;
 
