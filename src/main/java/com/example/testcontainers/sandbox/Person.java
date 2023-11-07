@@ -122,4 +122,22 @@ public class Person implements Serializable {
   public int hashCode() {
     return getClass().hashCode();
   }
+
+  @Override
+  public String toString() {
+    return "Person{"
+        + "id="
+        + id
+        + ", firstName='"
+        + firstName
+        + '\''
+        + ", lastName='"
+        + lastName
+        + '\''
+        + ", country="
+        + country
+        + ", language="
+        + language
+        + '}';
+  }
 }

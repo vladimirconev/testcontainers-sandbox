@@ -1,6 +1,5 @@
 package com.example.testcontainers.sandbox;
 
-import java.time.Clock;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,8 +15,7 @@ public class PersonService {
   public boolean softDelete(final UUID id) {
     if (repository.existsById(id)) {
       var person = repository.getReferenceById(id);
-      var instant = Instant.now(Clock.systemUTC());
-      person.setDeletedAt(instant);
+      person.setDeletedAt(Instant.now());
       repository.saveAndFlush(person);
       return true;
     }

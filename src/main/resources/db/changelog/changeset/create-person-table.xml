@@ -17,6 +17,8 @@
             deleted_at TIMESTAMP WITHOUT TIME ZONE,
             updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
             );
+
+            ALTER TABLE person ADD CONSTRAINT unique_person UNIQUE (first_name,last_name,country,language,created_at);
         </sql>
     </changeSet>
 
