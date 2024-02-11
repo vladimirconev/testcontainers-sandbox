@@ -9,8 +9,6 @@ public interface PersonMapper {
 
   PersonMapper MAPPER = Mappers.getMapper(PersonMapper.class);
 
-  Person toPerson(PersonRequest personRequest);
-
   @InheritInverseConfiguration
-  PersonResponse fromPerson(Person person);
+  PersonResponse mapToResponse(Person person);
 }

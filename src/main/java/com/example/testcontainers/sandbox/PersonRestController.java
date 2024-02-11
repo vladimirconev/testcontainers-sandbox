@@ -35,7 +35,7 @@ class PersonRestController {
             request.lastName(),
             Country.valueOf(request.country()),
             Language.valueOf(request.language()));
-    var responseBody = PersonMapper.MAPPER.fromPerson(person);
+    var responseBody = PersonMapper.MAPPER.mapToResponse(person);
     return ResponseEntity.created(URI.create("/api/v1/persons/%s".formatted(person.getId())))
         .body(responseBody);
   }
@@ -45,7 +45,7 @@ class PersonRestController {
     var personResponse =
         personService
             .byId(id)
-            .map(PersonMapper.MAPPER::fromPerson)
+            .map(PersonMapper.MAPPER::mapToResponse)
             .orElseThrow(NoSuchElementException::new);
     return ResponseEntity.ok(personResponse);
   }
