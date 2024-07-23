@@ -1,5 +1,6 @@
 package com.example.testcontainers.sandbox;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.NoSuchElementException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/persons")
 @Validated
+@Tag(name = "Persons")
 class PersonRestController {
 
   private final PersonService personService;
